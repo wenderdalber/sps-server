@@ -80,3 +80,5 @@ Acesse `http://localhost:3000/docs` para a interface interativa da API.
 | `swagger-ui-express` | Interface visual da documentação |
 | `swagger-jsdoc` | Geração da spec OpenAPI via comentários |
 | `cors` | Liberação de CORS |
+
+Link do projeto back-end: https://github.com/wenderdalber/sps-react
