@@ -1,52 +1,82 @@
-----------------------------------
-ESPANHOL
-----------------------------------
+# SPS Group – Users API
 
-## Prueba NODE
+API RESTful de gerenciamento de usuários com autenticação JWT.
 
-- Crear un CRUD (API REST) en Node para el registro de usuarios.
-- Para la creación de la prueba, utilizar un repositorio falso de usuarios (puede ser en memoria).
+## Requisitos
 
-## Reglas
+- [Node.js](https://nodejs.org/) v18+
+- [Yarn](https://yarnpkg.com/)
 
-- Debe existir un usuario administrador previamente registrado para utilizar la autenticación (no es necesario cifrar la contraseña):
+## Instalação
+
+```bash
+# Clone o repositório
+git clone <url-do-repositorio>
+cd test-sps-server-main
+
+# Instale as dependências
+yarn install
+```
+
+## Configuração
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+PORT=3000
+JWT_SECRET=sua_chave_secreta_aqui
+```
+
+> O projeto já inclui um `.env` de exemplo. Caso não exista, os valores padrão são `PORT=3000` e um secret de desenvolvimento.
+
+## Executando
+
+```bash
+# Desenvolvimento
+yarn dev
+
+# Produção
+yarn start
+```
+
+O servidor estará disponível em `http://localhost:3000`.
+
+## Documentação (Swagger)
+
+Acesse `http://localhost:3000/docs` para a interface interativa da API.
+
+### Como autenticar no Swagger
+
+1. Execute **POST /auth/login** com as credenciais abaixo
+2. Copie o `token` retornado
+3. Clique em **Authorize** 🔒 no topo da página
+4. Insira o valor no formato: `Bearer <token>`
+
+## Credenciais do administrador
+
+```json
 {
-  "name": "admin",
   "email": "admin@spsgroup.com.br",
-  "type": "admin",
   "password": "1234"
 }
+```
 
-- Crear una ruta de autenticación (token Jwt).
-- Las rutas de la API solo pueden ser ejecutadas si el usuario está autenticado.
-- Debe ser posible añadir usuarios con los campos: email, nombre, type, password.
-- No debe ser posible registrar un correo electrónico ya existente.
-- Debe ser posible eliminar usuarios.
-- Debe ser posible modificar los datos de un usuario.
+## Rotas
 
+| Método | Rota | Auth | Descrição |
+|---|---|---|---|
+| POST | `/auth/login` | ❌ | Gera token JWT |
+| GET | `/users` | ✅ | Lista usuários |
+| POST | `/users` | ✅ | Cadastra usuário |
+| PUT | `/users/:id` | ✅ | Edita usuário |
+| DELETE | `/users/:id` | ✅ | Remove usuário |
 
-----------------------------------
-PORTUGUÊS
-----------------------------------
+## Dependências principais
 
-# Teste NODE
-
-- Criar um CRUD (API REST) em node para cadastro de usuários
-- Para a criação do teste utilizar um repositório fake dos usuários. (Pode ser em memória)
-
-## Regras
-
-- Deve existir um usuário admin previamente cadastrado para utilizar autenticação (não precisa criptografar a senha);
-  {
-    name: "admin",
-    email: "admin@spsgroup.com.br",
-    type: "admin"
-    password: "1234"
-  }
-
-- Criar rota de autenticação (Jwt token)
-- As rotas da API só podem ser executadas se estiver autenticada
-- Deve ser possível adicionar usuários. Campos: email, nome, type, password
-- Não deve ser possível cadastrar o e-mail já cadastrado
-- Deve ser possível remover usuário
-- Deve ser possível alterar os dados do usuário
+| Pacote | Descrição |
+|---|---|
+| `express` | Framework HTTP |
+| `jsonwebtoken` | Geração e verificação de JWT |
+| `swagger-ui-express` | Interface visual da documentação |
+| `swagger-jsdoc` | Geração da spec OpenAPI via comentários |
+| `cors` | Liberação de CORS |
