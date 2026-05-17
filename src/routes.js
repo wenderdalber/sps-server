@@ -39,10 +39,10 @@ function authMiddleware(req, res, next) {
  *             properties:
  *               email:
  *                 type: string
- *                 example: admin@spsgroup.com.br
+ *                 example: user@email.com
  *               password:
  *                 type: string
- *                 example: "1234"
+ *                 example: "11111"
  *     responses:
  *       200:
  *         description: Token gerado
