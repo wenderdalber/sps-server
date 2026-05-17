@@ -91,6 +91,30 @@ routes.get("/users", authMiddleware, (req, res) => {
 /**
  * @swagger
  * /users:
+ *   get/:id
+ *     summary: Exibe um usuário pelo id
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Exibe um usuário por id
+ *       401:
+ *         description: Não autorizado
+ *       40:
+ *         description: Usuário não existe
+ */
+routes.get("/users/:id", authMiddleware, (req, res) => {
+  const id = parseInt(req.params.id);
+  const user = users.find(u => u.id === id);
+  if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
+  const { password, ...safeUser } = user;
+  return res.json(safeUser);
+});
+
+/**
+ * @swagger
+ * /users:
  *   post:
  *     summary: Cadastrar novo usuário
  *     tags: [Users]
